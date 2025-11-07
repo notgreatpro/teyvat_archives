@@ -1,0 +1,183 @@
+<mxfile host="app.diagrams.net" modified="2024-11-06T00:00:00.000Z" agent="Claude" version="22.0.0" etag="genshin-impact-erd">
+  <diagram name="Genshin Impact Database ERD" id="genshin-erd">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Region Table -->
+        <mxCell id="region-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Region&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;br/&gt;archon: VARCHAR&lt;br/&gt;description: TEXT&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#E3F2FD;strokeColor=#1976D2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- WeaponType Table -->
+        <mxCell id="weapontype-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;WeaponType&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFF3E0;strokeColor=#F57C00;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="230" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Vision Table -->
+        <mxCell id="vision-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Vision&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="370" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Arkhe Table -->
+        <mxCell id="arkhe-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Arkhe&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#E8F5E9;strokeColor=#388E3C;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="50" y="510" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Character Table (Center) -->
+        <mxCell id="character-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Character&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;br/&gt;star_rarity: INT&lt;br/&gt;release_date: DATE&lt;br/&gt;birthday: VARCHAR&lt;br/&gt;model: VARCHAR&lt;br/&gt;constellation: VARCHAR&lt;br/&gt;🔗 vision_id: INT (FK)&lt;br/&gt;🔗 arkhe_id: INT (FK)&lt;br/&gt;🔗 weapon_type_id: INT (FK)&lt;br/&gt;🔗 region_id: INT (FK)&lt;br/&gt;ascension_specialty: VARCHAR&lt;br/&gt;ascension_boss_material: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="450" y="200" width="260" height="280" as="geometry" />
+        </mxCell>
+        
+        <!-- Affiliation Table -->
+        <mxCell id="affiliation-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Affiliation&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FCE4EC;strokeColor=#C2185B;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="50" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- CharacterAffiliation Join Table -->
+        <mxCell id="characteraffiliation-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;CharacterAffiliation&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;🔗 character_id: INT (FK)&lt;br/&gt;🔗 affiliation_id: INT (FK)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#E0F2F1;strokeColor=#00796B;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="980" y="220" width="240" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- SpecialDish Table -->
+        <mxCell id="specialdish-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;SpecialDish&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;name: VARCHAR&lt;br/&gt;🔗 character_id: INT (FK)&lt;br/&gt;description: TEXT&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#FFF9C4;strokeColor=#F57F17;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="400" width="220" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- VoiceActor Table -->
+        <mxCell id="voiceactor-table" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;VoiceActor&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;🔑 id: INT (PK)&lt;br/&gt;🔗 character_id: INT (FK)&lt;br/&gt;language_code: VARCHAR&lt;br/&gt;name: VARCHAR&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#E1BEE7;strokeColor=#8E24AA;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="580" width="220" height="110" as="geometry" />
+        </mxCell>
+        
+        <!-- Relationships -->
+        
+        <!-- Region to Character (1:N) -->
+        <mxCell id="region-character" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="region-table" target="character-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="region-character-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="region-character">
+          <mxGeometry x="-0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="region-character-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="region-character">
+          <mxGeometry x="0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- WeaponType to Character (1:N) -->
+        <mxCell id="weapontype-character" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="weapontype-table" target="character-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="weapontype-character-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="weapontype-character">
+          <mxGeometry x="-0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="weapontype-character-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="weapontype-character">
+          <mxGeometry x="0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Vision to Character (1:N) -->
+        <mxCell id="vision-character" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="vision-table" target="character-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vision-character-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="vision-character">
+          <mxGeometry x="-0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vision-character-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="vision-character">
+          <mxGeometry x="0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Arkhe to Character (1:0..N) -->
+        <mxCell id="arkhe-character" value="" style="endArrow=ERzeroToMany;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.85;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="arkhe-table" target="character-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arkhe-character-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="arkhe-character">
+          <mxGeometry x="-0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arkhe-character-label0N" value="0..N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="arkhe-character">
+          <mxGeometry x="0.8" y="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Character to CharacterAffiliation (1:N) -->
+        <mxCell id="character-charaffil" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="character-table" target="characteraffiliation-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="character-charaffil-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-charaffil">
+          <mxGeometry x="-0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="character-charaffil-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-charaffil">
+          <mxGeometry x="0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Affiliation to CharacterAffiliation (1:N) -->
+        <mxCell id="affil-charaffil" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="affiliation-table" target="characteraffiliation-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="affil-charaffil-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="affil-charaffil">
+          <mxGeometry x="-0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="15" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="affil-charaffil-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="affil-charaffil">
+          <mxGeometry x="0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="15" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Character to SpecialDish (1:0..1) -->
+        <mxCell id="character-dish" value="" style="endArrow=ERzeroToOne;html=1;rounded=0;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="character-table" target="specialdish-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="character-dish-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-dish">
+          <mxGeometry x="-0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="character-dish-label01" value="0..1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-dish">
+          <mxGeometry x="0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Character to VoiceActor (1:N) -->
+        <mxCell id="character-voice" value="" style="endArrow=ERmany;html=1;rounded=0;exitX=1;exitY=0.9;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;" edge="1" parent="1" source="character-table" target="voiceactor-table">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="character-voice-label1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-voice">
+          <mxGeometry x="-0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="character-voice-labelN" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;fontStyle=1" vertex="1" connectable="0" parent="character-voice">
+          <mxGeometry x="0.7" y="1" relative="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="title" value="Genshin Impact Database ERD" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="10" width="300" height="30" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
