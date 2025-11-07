@@ -1,28 +1,117 @@
-<h1>All Characters</h1>
-<%= form_with url: characters_path, method: :get, local: true do |form| %>
-  <%= form.text_field :q, value: params[:q], placeholder: "Search by name" %>
-  <%= form.submit "Search" %>
-<% end %>
-<table class="table table-striped mt-3">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Vision</th>
-      <th>Region</th>
-      <th>Weapon</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @characters.each do |character| %>
-      <tr>
-        <td><%= link_to character.name, character_path(character) %></td>
-        <td><%= character.vision&.name %></td>
-        <td><%= character.region&.name %></td>
-        <td><%= character.weapon_type&.name %></td>
-        <td></td>
-      </tr>
+<!-- app/views/characters/index.html.erb -->
+<div class="row">
+  <div class="col-12">
+    <h1>Genshin Impact Characters</h1>
+    <p class="lead">Explore all characters from the world of Teyvat</p>
+    
+    <!-- Search & Filter Form -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Search & Filter</h5>
+        <%= form_with url: characters_path, method: :get, local: true do |f| %>
+          <div class="row g-3">
+            <!-- Text Search -->
+            <div class="col-md-3">
+              <%= f.label :q, "Character Name", class: "form-label" %>
+              <%= f.text_field :q, value: params[:q], placeholder: "Search by name...", class: "form-control" %>
+            </div>
+            
+            <!-- Region Filter (Hierarchical Search) -->
+            <div class="col-md-3">
+              <%= f.label :region_id, "Region", class: "form-label" %>
+              <%= f.select :region_id, 
+                  options_from_collection_for_select(Region.order(:name), :id, :name, params[:region_id]), 
+                  { include_blank: "All Regions" }, 
+                  class: "form-select" %>
+            </div>
+            
+            <!-- Vision Filter (Hierarchical Search) -->
+            <div class="col-md-3">
+              <%= f.label :vision_id, "Vision (Element)", class: "form-label" %>
+              <%= f.select :vision_id, 
+                  options_from_collection_for_select(Vision.order(:name), :id, :name, params[:vision_id]), 
+                  { include_blank: "All Elements" }, 
+                  class: "form-select" %>
+            </div>
+            
+            <!-- Weapon Type Filter (Hierarchical Search) -->
+            <div class="col-md-3">
+              <%= f.label :weapon_type_id, "Weapon Type", class: "form-label" %>
+              <%= f.select :weapon_type_id, 
+                  options_from_collection_for_select(WeaponType.order(:name), :id, :name, params[:weapon_type_id]), 
+                  { include_blank: "All Weapons" }, 
+                  class: "form-select" %>
+            </div>
+            
+            <!-- Submit Buttons -->
+            <div class="col-12">
+              <%= f.submit "Search", class: "btn btn-primary" %>
+              <%= link_to "Clear Filters", characters_path, class: "btn btn-outline-secondary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Filter Results Info (ERB Conditional) -->
+    <% if params[:q].present? || params[:region_id].present? || params[:vision_id].present? || params[:weapon_type_id].present? %>
+      <div class="alert alert-info">
+        <strong>Filtered Results:</strong> 
+        Showing <%= @characters.total_count %> characters
+        <%= "matching '#{params[:q]}'" if params[:q].present? %>
+        <%= "from #{Region.find(params[:region_id]).name}" if params[:region_id].present? %>
+        <%= "with #{Vision.find(params[:vision_id]).name} vision" if params[:vision_id].present? %>
+        <%= "using #{WeaponType.find(params[:weapon_type_id]).name}" if params[:weapon_type_id].present? %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @characters %>
+
+    <!-- Characters Grid (Bootstrap Grid) -->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+      <% @characters.each do |character| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to character.name, character_path(character), class: "text-decoration-none" %>
+              </h5>
+              
+              <div class="mb-2">
+                <span class="badge bg-warning text-dark">
+                  <%= "★" * character.star_rarity %>
+                </span>
+              </div>
+              
+              <p class="card-text small mb-1">
+                <strong>Region:</strong> <%= character.region.name %>
+              </p>
+              
+              <p class="card-text small mb-1">
+                <strong>Vision:</strong> <%= character.vision.name %>
+              </p>
+              
+              <p class="card-text small mb-1">
+                <strong>Weapon:</strong> <%= character.weapon_type.name %>
+              </p>
+              
+              <!-- ERB Conditional for Birthday -->
+              <% if character.birthday.present? %>
+                <p class="card-text small text-muted mb-0">
+                  <strong>Birthday:</strong> <%= character.birthday %>
+                </p>
+              <% end %>
+            </div>
+            
+            <div class="card-footer bg-transparent">
+              <%= link_to "View Details →", character_path(character), class: "btn btn-sm btn-outline-primary w-100" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4 d-flex justify-content-center">
+      <%= paginate @characters %>
+    </div>
+  </div>
+</div>

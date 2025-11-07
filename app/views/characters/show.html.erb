@@ -1,11 +1,175 @@
-<h1><%= @character.name %></h1>
-<p>Vision: <%= @character.vision&.name %></p>
-<p>Region: <%= @character.region&.name %></p>
-<p>Weapon: <%= @character.weapon_type&.name %></p>
-<p>Stars: <%= @character.star_rarity %></p>
-<% if @character.special_dish.present? %>
-  <p>Special Dish: <%= @character.special_dish.name %></p>
-<% else %>
-  <p><em>No special dish available.</em></p>
-<% end %>
-<!-- Add more associated data as needed -->
+<!-- app/views/characters/show.html.erb -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Characters", characters_path %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @character.name %></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-lg-8">
+    <!-- Main Character Info -->
+    <div class="card mb-4 shadow">
+      <div class="card-header bg-primary text-white">
+        <h1 class="mb-0"><%= @character.name %></h1>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Basic Information</h5>
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <th>Rarity</th>
+                  <td>
+                    <span class="badge bg-warning text-dark fs-6">
+                      <%= "★" * @character.star_rarity %>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Region</th>
+                  <td><%= link_to @character.region.name, region_path(@character.region) %></td>
+                </tr>
+                <tr>
+                  <th>Vision</th>
+                  <td><%= link_to @character.vision.name, vision_path(@character.vision) %></td>
+                </tr>
+                <tr>
+                  <th>Weapon Type</th>
+                  <td><%= link_to @character.weapon_type.name, weapon_type_path(@character.weapon_type) %></td>
+                </tr>
+                <!-- ERB Conditional: Only show Arkhe if present -->
+                <% if @character.arkhe.present? %>
+                  <tr>
+                    <th>Arkhe</th>
+                    <td><%= @character.arkhe.name %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="col-md-6">
+            <h5>Character Details</h5>
+            <table class="table table-sm">
+              <tbody>
+                <!-- ERB Conditional: Only show if constellation exists -->
+                <% if @character.constellation.present? %>
+                  <tr>
+                    <th>Constellation</th>
+                    <td><%= @character.constellation %></td>
+                  </tr>
+                <% end %>
+                
+                <!-- ERB Conditional: Only show if birthday exists -->
+                <% if @character.birthday.present? %>
+                  <tr>
+                    <th>Birthday</th>
+                    <td><%= @character.birthday %></td>
+                  </tr>
+                <% end %>
+                
+                <!-- ERB Conditional: Only show if model exists -->
+                <% if @character.model.present? %>
+                  <tr>
+                    <th>Model</th>
+                    <td><%= @character.model %></td>
+                  </tr>
+                <% end %>
+                
+                <!-- ERB Conditional: Only show if release date exists -->
+                <% if @character.release_date.present? %>
+                  <tr>
+                    <th>Release Date</th>
+                    <td><%= @character.release_date.strftime("%B %d, %Y") rescue @character.release_date %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ascension Materials (ERB Conditional) -->
+    <% if @character.ascension_specialty.present? || @character.ascension_boss_material.present? %>
+      <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">Ascension Materials</h5>
+        </div>
+        <div class="card-body">
+          <% if @character.ascension_specialty.present? %>
+            <p><strong>Specialty:</strong> <%= @character.ascension_specialty %></p>
+          <% end %>
+          <% if @character.ascension_boss_material.present? %>
+            <p class="mb-0"><strong>Boss Material:</strong> <%= @character.ascension_boss_material %></p>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no materials -->
+      <div class="alert alert-info">
+        No ascension material information available for this character.
+      </div>
+    <% end %>
+
+    <!-- Affiliations (ERB Conditional + Multi-model Data) -->
+    <% if @character.affiliations.any? %>
+      <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">Affiliations</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <% @character.affiliations.each do |affiliation| %>
+              <li class="list-group-item">
+                <%= link_to affiliation.name, affiliation_path(affiliation) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no affiliations -->
+      <div class="alert alert-warning">
+        <strong>No affiliations recorded</strong> for this character.
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-lg-4">
+    <!-- Voice Actors (ERB Conditional + Multi-model Data) -->
+    <% if @character.voice_actors.any? %>
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Voice Actors</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-sm mb-0">
+            <thead>
+              <tr>
+                <th>Language</th>
+                <th>Voice Actor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @character.voice_actors.order(:language_code).each do |va| %>
+                <tr>
+                  <td><strong><%= va.language_code %></strong></td>
+                  <td><%= va.name %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no voice actors -->
+      <div class="alert alert-warning">
+        No voice actor information available.
+      </div>
+    <% end %>
+
+    <!-- Special Dish (ERB Conditional + Multi-mod
