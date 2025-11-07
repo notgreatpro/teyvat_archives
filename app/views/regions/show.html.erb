@@ -1,0 +1,32 @@
+<!-- app/views/regions/show.html.erb -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Regions", regions_path %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @region.name %></li>
+  </ol>
+</nav>
+
+<h1><%= @region.name %> Characters</h1>
+<p class="lead">Showing <%= @characters.total_count %> characters from <%= @region.name %></p>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+  <% @characters.each do |character| %>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to character.name, character_path(character) %></h5>
+          <p class="card-text">
+            <strong>★</strong> <%= character.star_rarity %><br>
+            <strong>Vision:</strong> <%= character.vision.name %><br>
+            <strong>Weapon:</strong> <%= character.weapon_type.name %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-4">
+  <%= paginate @characters %>
+</div>

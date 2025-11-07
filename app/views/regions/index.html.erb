@@ -1,0 +1,18 @@
+<!-- app/views/regions/index.html.erb -->
+<h1>Regions of Teyvat</h1>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <% @regions.each do |region| %>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to region.name, region_path(region) %></h5>
+          <p class="card-text">
+            <strong>Characters:</strong> <%= region.characters.count %>
+          </p>
+          <%= link_to "View Characters →", region_path(region), class: "btn btn-primary btn-sm" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,28 @@
+<h1>All Characters</h1>
+<%= form_with url: characters_path, method: :get, local: true do |form| %>
+  <%= form.text_field :q, value: params[:q], placeholder: "Search by name" %>
+  <%= form.submit "Search" %>
+<% end %>
+<table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Vision</th>
+      <th>Region</th>
+      <th>Weapon</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @characters.each do |character| %>
+      <tr>
+        <td><%= link_to character.name, character_path(character) %></td>
+        <td><%= character.vision&.name %></td>
+        <td><%= character.region&.name %></td>
+        <td><%= character.weapon_type&.name %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @characters %>

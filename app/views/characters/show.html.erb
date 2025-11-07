@@ -1,0 +1,11 @@
+<h1><%= @character.name %></h1>
+<p>Vision: <%= @character.vision&.name %></p>
+<p>Region: <%= @character.region&.name %></p>
+<p>Weapon: <%= @character.weapon_type&.name %></p>
+<p>Stars: <%= @character.star_rarity %></p>
+<% if @character.special_dish.present? %>
+  <p>Special Dish: <%= @character.special_dish.name %></p>
+<% else %>
+  <p><em>No special dish available.</em></p>
+<% end %>
+<!-- Add more associated data as needed -->

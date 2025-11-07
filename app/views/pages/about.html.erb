@@ -1,0 +1,86 @@
+<!-- app/views/pages/about.html.erb -->
+<div class="container mt-4">
+  <h1>About Teyvat Archives</h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>Project Overview</h3>
+      <p>
+        <strong>Teyvat Archives</strong> is a comprehensive Genshin Impact character database 
+        built with Ruby on Rails. This project aggregates character information from multiple 
+        data sources to provide detailed insights into the world of Teyvat.
+      </p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>Data Sources</h3>
+      <ul>
+        <li>
+          <strong>CSV Dataset:</strong> 
+          <a href="https://www.kaggle.com/datasets/ngtengsuan/genshin-impact-characters-dataset" target="_blank">
+            Genshin Impact Characters Dataset (Kaggle)
+          </a>
+          - Comprehensive character statistics, materials, and attributes
+        </li>
+        <li>
+          <strong>Genshin API:</strong> 
+          <a href="https://genshin.jmp.blue/" target="_blank">
+            JMP Blue Genshin API
+          </a>
+          - Additional character details and enrichment data
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>Database Structure</h3>
+      <p>The database consists of the following tables:</p>
+      <ul>
+        <li><strong>Characters:</strong> Core character information (name, rarity, release date, etc.)</li>
+        <li><strong>Regions:</strong> The seven nations of Teyvat (Mondstadt, Liyue, Inazuma, etc.)</li>
+        <li><strong>Visions:</strong> Elemental types (Pyro, Hydro, Anemo, etc.)</li>
+        <li><strong>Weapon Types:</strong> Combat weapon categories (Sword, Bow, Claymore, etc.)</li>
+        <li><strong>Affiliations:</strong> Character organizations and groups</li>
+        <li><strong>Voice Actors:</strong> Voice talent across multiple languages</li>
+        <li><strong>Special Dishes:</strong> Character-specific food items</li>
+      </ul>
+      
+      <% if File.exist?(Rails.root.join('public', 'erd.png')) %>
+        <div class="mt-3">
+          <h5>Entity Relationship Diagram</h5>
+          <%= image_tag 'erd.png', class: 'img-fluid', alt: 'ERD Diagram' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>Features</h3>
+      <ul>
+        <li>Browse all <%= Character.count %> characters</li>
+        <li>Filter by region, vision, or weapon type</li>
+        <li>Search characters by name</li>
+        <li>View detailed character profiles with voice actors and affiliations</li>
+        <li>Hierarchical navigation through regions and elements</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h3>Technologies Used</h3>
+      <ul>
+        <li>Ruby on Rails 7</li>
+        <li>PostgreSQL Database</li>
+        <li>Bootstrap 5 for responsive design</li>
+        <li>Kaminari for pagination</li>
+        <li>HTTParty for API integration</li>
+      </ul>
+    </div>
+  </div>
+</div>
