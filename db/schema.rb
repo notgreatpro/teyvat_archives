@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_07_024815) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_07_044944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,15 +43,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_07_024815) do
     t.string "model"
     t.string "constellation"
     t.bigint "vision_id", null: false
-    t.bigint "arkhe_id", null: false
+    t.bigint "arkhe_id"
     t.bigint "weapon_type_id", null: false
     t.bigint "region_id", null: false
     t.string "ascension_specialty"
     t.string "ascension_boss_material"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "portrait"
+    t.text "detail"
+    t.string "slug"
     t.index ["arkhe_id"], name: "index_characters_on_arkhe_id"
     t.index ["region_id"], name: "index_characters_on_region_id"
+    t.index ["slug"], name: "index_characters_on_slug", unique: true
     t.index ["vision_id"], name: "index_characters_on_vision_id"
     t.index ["weapon_type_id"], name: "index_characters_on_weapon_type_id"
   end
