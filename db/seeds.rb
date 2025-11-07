@@ -4,7 +4,7 @@ csv_path = Rails.root.join("csv_data", "genshin_characters_v1.csv")
 
 CSV.foreach(csv_path, headers: true) do |row|
   # Skip rows missing required fields
-  if row["character_name"].blank? || row["star_rarity"].blank? || row["region"].blank? || row["vision"].blank? || row["weapon_type"].blank?
+  if row["character_name"].blank? || row["star_rarity"].blank? || row["region"].blank? || row["vision"].blank? || row["weapon_type"].blank? || row["slug"].blank?
     puts "Skipping row due to missing required fields: #{row.inspect}"
     next
   end
@@ -16,20 +16,20 @@ CSV.foreach(csv_path, headers: true) do |row|
   # Handle nullable arkhe
   arkhe = row['arkhe'].blank? ? nil : Arkhe.find_or_create_by(name: row['arkhe'])
 
-  character = Character.create!(
-    name: row["character_name"],
-    star_rarity: row["star_rarity"],
-    release_date: row["release_date"],
-    birthday: row["birthday"],
-    model: row["model"],
-    constellation: row["constellation"],
-    vision: vision,
-    region: region,
-    weapon_type: weapon_type,
-    arkhe: arkhe,
-    ascension_specialty: row["ascension_specialty"],
-    ascension_boss_material: row["ascension_boss_material"]
-  )
+  character = Character.find_or_initialize_by(slug: row["slug"])
+  character.name = row["character_name"]
+  character.star_rarity = row["star_rarity"]
+  character.release_date = row["release_date"]
+  character.birthday = row["birthday"]
+  character.model = row["model"]
+  character.constellation = row["constellation"]
+  character.vision = vision
+  character.region = region
+  character.weapon_type = weapon_type
+  character.arkhe = arkhe
+  character.ascension_specialty = row["ascension_specialty"]
+  character.ascension_boss_material = row["ascension_boss_material"]
+  character.save!
 
   # Affiliations (many-to-many)
   row["affiliation"].to_s.split(",").map(&:strip).each do |affil|
@@ -55,4 +55,4 @@ CSV.foreach(csv_path, headers: true) do |row|
   end
 end
 
-puts " Finished seeding characters!"
+puts "Finished seeding characters!"
