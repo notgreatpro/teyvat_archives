@@ -1,2 +1,76 @@
-<h1>Affiliations#show</h1>
-<p>Find me in app/views/affiliations/show.html.erb</p>
+<!-- app/views/affiliations/show.html.erb -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+    <li class="breadcrumb-item"><%= link_to "Affiliations", affiliations_path %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @affiliation.name %></li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header bg-info text-white">
+        <h1 class="mb-0"><%= @affiliation.name %></h1>
+      </div>
+      <div class="card-body">
+        <p class="lead">
+          <span class="badge bg-primary fs-6">
+            <%= @characters.total_count %> Members
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <h2>Members of <%= @affiliation.name %></h2>
+
+    <!-- ERB Conditional: Check if affiliation has members -->
+    <% if @characters.any? %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% @characters.each do |character| %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to character.name, character_path(character), class: "text-decoration-none" %>
+                </h5>
+                
+                <div class="mb-2">
+                  <span class="badge bg-warning text-dark">
+                    <%= "★" * character.star_rarity %>
+                  </span>
+                </div>
+                
+                <p class="card-text small mb-1">
+                  <strong>Region:</strong> <%= link_to character.region.name, region_path(character.region) %>
+                </p>
+                
+                <p class="card-text small mb-1">
+                  <strong>Vision:</strong> <%= link_to character.vision.name, vision_path(character.vision) %>
+                </p>
+                
+                <p class="card-text small mb-1">
+                  <strong>Weapon:</strong> <%= link_to character.weapon_type.name, weapon_type_path(character.weapon_type) %>
+                </p>
+              </div>
+              
+              <div class="card-footer bg-transparent">
+                <%= link_to "View Details →", character_path(character), class: "btn btn-sm btn-outline-primary w-100" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-4 d-flex justify-content-center">
+        <%= paginate @characters %>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no members -->
+      <div class="alert alert-info">
+        No members found for <%= @affiliation.name %>.
+      </div>
+    <% end %>
+  </div>
+</div>

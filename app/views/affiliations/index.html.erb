@@ -1,2 +1,37 @@
-<h1>Affiliations#index</h1>
-<p>Find me in app/views/affiliations/index.html.erb</p>
+<!-- app/views/affiliations/index.html.erb -->
+<div class="container">
+  <h1>Character Affiliations</h1>
+  <p class="lead">Organizations and groups across Teyvat</p>
+
+  <!-- ERB Conditional: Check if there are affiliations -->
+  <% if @affiliations.any? %>
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+      <% @affiliations.each do |affiliation| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link_to affiliation.name, affiliation_path(affiliation), class: "text-decoration-none" %>
+              </h5>
+              
+              <p class="card-text">
+                <span class="badge bg-primary">
+                  <%= affiliation.characters.count %> Members
+                </span>
+              </p>
+            </div>
+            
+            <div class="card-footer bg-transparent">
+              <%= link_to "View Members →", affiliation_path(affiliation), class: "btn btn-sm btn-primary w-100" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- ERB Conditional: Show message if no affiliations -->
+    <div class="alert alert-info mt-4">
+      No affiliations found.
+    </div>
+  <% end %>
+</div>

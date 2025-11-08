@@ -10,5 +10,7 @@ class RegionsController < ApplicationController
                         .order(:name)
                         .page(params[:page])
                         .per(20)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to regions_path, alert: "Region not found."
   end
 end

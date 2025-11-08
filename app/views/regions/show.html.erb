@@ -1,5 +1,5 @@
 <!-- app/views/regions/show.html.erb -->
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" class="mb-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
     <li class="breadcrumb-item"><%= link_to "Regions", regions_path %></li>
@@ -7,26 +7,76 @@
   </ol>
 </nav>
 
-<h1><%= @region.name %> Characters</h1>
-<p class="lead">Showing <%= @characters.total_count %> characters from <%= @region.name %></p>
-
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-  <% @characters.each do |character| %>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to character.name, character_path(character) %></h5>
-          <p class="card-text">
-            <strong>★</strong> <%= character.star_rarity %><br>
-            <strong>Vision:</strong> <%= character.vision.name %><br>
-            <strong>Weapon:</strong> <%= character.weapon_type.name %>
-          </p>
-        </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h1 class="mb-0"><%= @region.name %></h1>
+      </div>
+      <div class="card-body">
+        <!-- ERB Conditional: Show archon if available -->
+        <% if @region.archon.present? && @region.archon != "TBD" %>
+          <p><strong>Archon:</strong> <%= @region.archon %></p>
+        <% end %>
+        
+        <!-- ERB Conditional: Show description if available -->
+        <% if @region.description.present? %>
+          <p><%= @region.description %></p>
+        <% end %>
+        
+        <p class="lead">
+          <span class="badge bg-info fs-6">
+            <%= @characters.total_count %> Characters from <%= @region.name %>
+          </span>
+        </p>
       </div>
     </div>
-  <% end %>
-</div>
 
-<div class="mt-4">
-  <%= paginate @characters %>
+    <h2>Characters from <%= @region.name %></h2>
+
+    <!-- ERB Conditional: Check if region has characters -->
+    <% if @characters.any? %>
+      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <% @characters.each do |character| %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to character.name, character_path(character), class: "text-decoration-none" %>
+                </h5>
+                
+                <div class="mb-2">
+                  <span class="badge bg-warning text-dark">
+                    <%= "★" * character.star_rarity %>
+                  </span>
+                </div>
+                
+                <p class="card-text small mb-1">
+                  <strong>Vision:</strong> <%= link_to character.vision.name, vision_path(character.vision) %>
+                </p>
+                
+                <p class="card-text small mb-1">
+                  <strong>Weapon:</strong> <%= link_to character.weapon_type.name, weapon_type_path(character.weapon_type) %>
+                </p>
+              </div>
+              
+              <div class="card-footer bg-transparent">
+                <%= link_to "View Details →", character_path(character), class: "btn btn-sm btn-outline-primary w-100" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-4 d-flex justify-content-center">
+        <%= paginate @characters %>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no characters -->
+      <div class="alert alert-info">
+        No characters found from <%= @region.name %>.
+      </div>
+    <% end %>
+  </div>
 </div>

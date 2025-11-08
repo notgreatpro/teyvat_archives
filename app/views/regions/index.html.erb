@@ -1,18 +1,41 @@
 <!-- app/views/regions/index.html.erb -->
-<h1>Regions of Teyvat</h1>
+<div class="container">
+  <h1>Regions of Teyvat</h1>
+  <p class="lead">Explore the seven nations and their characters</p>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-  <% @regions.each do |region| %>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to region.name, region_path(region) %></h5>
-          <p class="card-text">
-            <strong>Characters:</strong> <%= region.characters.count %>
-          </p>
-          <%= link_to "View Characters →", region_path(region), class: "btn btn-primary btn-sm" %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+    <% @regions.each do |region| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= link_to region.name, region_path(region), class: "text-decoration-none" %>
+            </h5>
+            
+            <!-- ERB Conditional: Show archon if available -->
+            <% if region.archon.present? && region.archon != "TBD" %>
+              <p class="card-text text-muted">
+                <strong>Archon:</strong> <%= region.archon %>
+              </p>
+            <% end %>
+            
+            <p class="card-text">
+              <span class="badge bg-primary">
+                <%= region.characters.count %> Characters
+              </span>
+            </p>
+            
+            <!-- ERB Conditional: Show description if available -->
+            <% if region.description.present? %>
+              <p class="card-text small"><%= region.description %></p>
+            <% end %>
+          </div>
+          
+          <div class="card-footer bg-transparent">
+            <%= link_to "View Characters →", region_path(region), class: "btn btn-sm btn-primary w-100" %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
