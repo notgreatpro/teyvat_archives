@@ -1,0 +1,52 @@
+/* app/assets/stylesheets/custom_fonts.css */
+
+@font-face {
+  font-family: 'Hoyo Font';
+  src: url('zh-cn.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HSR Font';
+  src: url('DINPro-Bold_13934.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+/* Apply to entire site */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hoyo Font', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Headings with HSR Font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'HSR Font', 'Hoyo Font', sans-serif;
+  font-weight: bold;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-family: 'HSR Font', sans-serif;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+/* Cards */
+.card-title {
+  font-family: 'HSR Font', sans-serif;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn {
+  font-family: 'Hoyo Font', sans-serif;
+  font-weight: 500;
+}

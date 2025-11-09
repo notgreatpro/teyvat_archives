@@ -1,15 +1,145 @@
-<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Genshin Impact Archives</title>
+    <title>Genshin Character Archives</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     
+    <!-- Bootstrap FIRST -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Then your application CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    <!-- Custom fonts LAST (to override Bootstrap) -->
+    <style>
+      /* Load custom fonts */
+      @font-face {
+        font-family: 'Hoyo Font';
+        src: url('/fonts/zh-cn.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'HSR Font';
+        src: url('/fonts/DINPro-Bold_13934.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      /* Override Bootstrap's default fonts with !important */
+      body {
+        font-family: 'Hoyo Font', sans-serif !important;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'HSR Font', 'Hoyo Font', sans-serif !important;
+        font-weight: bold !important;
+      }
+
+      .navbar-brand {
+        font-family: 'HSR Font', sans-serif !important;
+        font-weight: bold !important;
+      }
+
+      .card-title {
+        font-family: 'HSR Font', sans-serif !important;
+        font-weight: bold !important;
+      }
+
+      .btn {
+        font-family: 'Hoyo Font', sans-serif !important;
+        font-weight: 600 !important;
+      }
+
+      .lead, p, .card-text, .form-label, .nav-link {
+        font-family: 'Hoyo Font', sans-serif !important;
+      }
+
+      /* Override Bootstrap badge fonts */
+      .badge {
+        font-family: 'Hoyo Font', sans-serif !important;
+        font-weight: 600 !important;
+      }
+
+      /* Override Bootstrap table/form fonts */
+      .table, .form-control, .form-select {
+        font-family: 'Hoyo Font', sans-serif !important;
+      }
+        /* Pagination Styles */
+  .pagination {
+    font-family: 'HSR Font', 'Hoyo Font', sans-serif !important;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 20px 0;
+  }
+
+  .pagination a,
+  .pagination span,
+  .pagination em {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid #0d6efd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #0d6efd;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  /* Current page */
+  .pagination em,
+  .pagination .current {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+  }
+
+  /* Hover effect */
+  .pagination a:hover {
+    background-color: #0d6efd;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  /* Disabled links (first/last) */
+  .pagination .disabled {
+    color: #6c757d;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .pagination .disabled:hover {
+    background-color: transparent;
+    color: #6c757d;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* First/Last/Prev/Next buttons */
+  .pagination .first,
+  .pagination .last,
+  .pagination .prev,
+  .pagination .next {
+    font-weight: bold;
+  }
+
+  /* Gap indicator (...) */
+  .pagination .gap {
+    border: none;
+    color: #6c757d;
+  }
+    </style>
+  
   </head>
 
   <body>
