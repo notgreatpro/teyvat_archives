@@ -172,5 +172,39 @@
       </div>
     <% end %>
 
-    <!-- Special Dish (ERB Conditional + Multi-mod -->
-    
+    <!-- Special Dish (ERB Conditional + Multi-model Data) -->
+    <% if @character.special_dish.present? %>
+      <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="mb-0">🍳 Special Dish</h5>
+        </div>
+        <div class="card-body">
+          <h6 class="card-title fw-bold"><%= @character.special_dish.name %></h6>
+          <% if @character.special_dish.description.present? %>
+            <p class="card-text small mb-0"><%= @character.special_dish.description %></p>
+          <% else %>
+            <p class="card-text small text-muted mb-0">A signature dish unique to <%= @character.name %>.</p>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <!-- ERB Conditional: Show message if no special dish -->
+      <div class="alert alert-secondary">
+        <i class="bi bi-info-circle"></i> No special dish information available for this character.
+      </div>
+    <% end %>
+
+    <!-- Quick Navigation (Hierarchical Navigation) -->
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Related Characters</h5>
+      </div>
+      <div class="list-group list-group-flush">
+        <%= link_to "All #{@character.region.name} Characters →", region_path(@character.region), class: "list-group-item list-group-item-action" %>
+        <%= link_to "All #{@character.vision.name} Users →", vision_path(@character.vision), class: "list-group-item list-group-item-action" %>
+        <%= link_to "All #{@character.weapon_type.name} Users →", weapon_type_path(@character.weapon_type), class: "list-group-item list-group-item-action" %>
+        <%= link_to "← Back to All Characters", characters_path, class: "list-group-item list-group-item-action" %>
+      </div>
+    </div>
+  </div>
+</div>
