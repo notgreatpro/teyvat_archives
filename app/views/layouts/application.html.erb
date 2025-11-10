@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang ="en">
   <head>
-    <title>Genshin Character Archives</title>
+    <title>Genshin Impact Archives</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     
-    <!-- Bootstrap FIRST -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Then your application CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     
-    <!-- Custom fonts LAST (to override Bootstrap) -->
     <style>
       /* Load custom fonts */
       @font-face {
@@ -32,9 +28,12 @@
         font-display: swap;
       }
 
-      /* Override Bootstrap's default fonts with !important */
+      /* Override Bootstrap fonts */
       body {
         font-family: 'Hoyo Font', sans-serif !important;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
 
       h1, h2, h3, h4, h5, h6 {
@@ -61,89 +60,171 @@
         font-family: 'Hoyo Font', sans-serif !important;
       }
 
-      /* Override Bootstrap badge fonts */
       .badge {
         font-family: 'Hoyo Font', sans-serif !important;
         font-weight: 600 !important;
       }
 
-      /* Override Bootstrap table/form fonts */
       .table, .form-control, .form-select {
         font-family: 'Hoyo Font', sans-serif !important;
       }
-        /* Pagination Styles */
-  .pagination {
-    font-family: 'HSR Font', 'Hoyo Font', sans-serif !important;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    padding: 20px 0;
-  }
 
-  .pagination a,
-  .pagination span,
-  .pagination em {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 0 2px;
-    border: 1px solid #0d6efd;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #0d6efd;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
+      /* Main content flex */
+      .main-content {
+        flex: 1;
+      }
 
-  /* Current page */
-  .pagination em,
-  .pagination .current {
-    background-color: #0d6efd;
-    color: white;
-    border-color: #0d6efd;
-  }
+      /* Gradient Navbar */
+      .navbar-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      }
 
-  /* Hover effect */
-  .pagination a:hover {
-    background-color: #0d6efd;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
+      /* Navbar link hover effects */
+      .navbar-gradient .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 8px 16px !important;
+        margin: 0 4px;
+        border-radius: 6px;
+      }
 
-  /* Disabled links (first/last) */
-  .pagination .disabled {
-    color: #6c757d;
-    border-color: #dee2e6;
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+      .navbar-gradient .nav-link:hover {
+        color: #ffd700 !important;
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      }
 
-  .pagination .disabled:hover {
-    background-color: transparent;
-    color: #6c757d;
-    transform: none;
-    box-shadow: none;
-  }
+      .navbar-gradient .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+        color: white !important;
+      }
 
-  /* First/Last/Prev/Next buttons */
-  .pagination .first,
-  .pagination .last,
-  .pagination .prev,
-  .pagination .next {
-    font-weight: bold;
-  }
+      /* Navbar brand hover */
+      .navbar-gradient .navbar-brand {
+        color: white !important;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
 
-  /* Gap indicator (...) */
-  .pagination .gap {
-    border: none;
-    color: #6c757d;
-  }
+      .navbar-gradient .navbar-brand:hover {
+        color: #ffd700 !important;
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        transform: scale(1.05);
+      }
+
+      /* Gradient Footer */
+      .footer-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+      }
+
+      /* Footer link hover effects */
+      .footer-gradient a {
+        color: rgba(255, 255, 255, 0.9) !important;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .footer-gradient a:hover {
+        color: #ffd700 !important;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Pagination Styles */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 30px 0;
+        font-family: 'HSR Font', sans-serif !important;
+      }
+
+      .pagination a,
+      .pagination span,
+      .pagination em {
+        min-width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: 2px solid #764ba2;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      }
+
+      .pagination em,
+      .pagination .current {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-color: #f5576c;
+        box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        font-style: normal;
+      }
+
+      .pagination a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+      /* Fix body layout for footer positioning */
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        font-family: 'Hoyo Font', sans-serif !important;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Main content should grow to push footer down */
+      .main-content {
+        flex: 1 0 auto;
+        padding-bottom: 2rem;
+      }
+
+      /* Footer should stick to bottom */
+      .footer-gradient {
+        flex-shrink: 0;
+        margin-top: auto;
+      }
+
+      .pagination .disabled {
+        background: #e9ecef;
+        color: #6c757d;
+        border-color: #dee2e6;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .pagination .disabled:hover {
+        transform: none;
+      }
+
+      .pagination .gap {
+        background: transparent;
+        border: none;
+        color: #6c757d;
+        box-shadow: none;
+      }
     </style>
-  
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- Gradient Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-gradient">
       <div class="container-fluid">
         <%= link_to "Teyvat Archives", root_path, class: "navbar-brand" %>
         
@@ -152,7 +233,7 @@
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <%= link_to "Characters", characters_path, class: "nav-link" %>
             </li>
@@ -176,9 +257,39 @@
       </div>
     </nav>
 
-    <div class="container mt-4">
+    <!-- Main Content -->
+    <div class="container mt-4 main-content">
       <%= yield %>
     </div>
+    
+    <!-- Gradient Footer -->
+    <footer class="footer-gradient text-white mt-5 py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 text-center text-md-start mb-3 mb-md-0">
+            <h4 class="mb-3">Teyvat Archives</h4>
+            <p class="mb-1">&copy; <%= Time.now.year %> Teyvat Archives. Fan project for educational use.</p>
+            <p class="small opacity-75 mb-0">
+              This website is not affiliated with or endorsed by HoYoverse.<br>
+              All images, names, descriptions, and lore are owned by their respective owners.
+            </p>
+          </div>
+          
+          <div class="col-md-4 text-center text-md-end">
+            <h6 class="mb-3">Explore</h6>
+            <div class="d-flex flex-wrap justify-content-center justify-content-md-end gap-3 mb-3">
+              <%= link_to "Characters", characters_path, class: "fw-bold" %>
+              <%= link_to "Regions", regions_path, class: "fw-bold" %>
+              <%= link_to "Visions", visions_path, class: "fw-bold" %>
+              <%= link_to "About", about_path, class: "fw-bold" %>
+            </div>
+            <p class="small mb-0 opacity-75">
+              Powered by Rails • PostgreSQL
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
